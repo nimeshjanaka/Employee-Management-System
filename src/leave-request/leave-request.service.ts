@@ -52,4 +52,17 @@ export class LeaveRequestService {
   remove(id: number) {
     return `This action removes a #${id} leaveRequest`;
   }
+
+  async findLeavesByStatus(
+    userId: number,
+    status: LeaveRequestStatus,
+  ): Promise<LeaveRequest[]> {
+    return this.leaveRequestRepository.find({
+      where: {
+        employee: { id: userId },
+        status: status,
+      },
+      relations: ['employee'],
+    });
+  }
 }
